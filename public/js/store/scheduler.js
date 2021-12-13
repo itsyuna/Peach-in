@@ -1,6 +1,6 @@
 const store = {
   _state: {
-    todos: ['haha', 'hihi'],
+    todos: [],
   },
 
   get todos() {
