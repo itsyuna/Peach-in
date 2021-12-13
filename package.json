@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "nodemon server"
   },
   "repository": {
     "type": "git",
@@ -24,9 +25,11 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-html": "^6.2.0",
     "eslint-plugin-import": "^2.25.3",
-    "express": "^4.17.1",
     "jest": "^27.4.4",
     "nodemon": "^2.0.15",
     "prettier": "2.5.1"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
   }
 }
