@@ -1,14 +1,14 @@
 const store = {
   _state: {
-    todos: [],
+    schedules: [],
   },
 
-  get todos() {
-    return this._state.todos;
+  get schedules() {
+    return this._state.schedules;
   },
-  set todos(newTodos) {
+  set schedules(newTodos) {
     if (typeof newTodos !== 'object') return;
-    this._state.todos = newTodos;
+    this._state.schedules = newTodos;
   },
 };
 
