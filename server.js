@@ -1,6 +1,6 @@
-const express = require('express');
+import express from 'express';
 
-const PORT = 5000;
+const PORT = 5555;
 const app = express();
 
 app.use(express.static('public'));
