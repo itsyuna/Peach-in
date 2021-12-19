@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script defer type="module" src="./js/kanban/kanban.js"></script>
+    <title>Document</title>
+    <style>
+      .kanban-container {
+        display: flex;
+        background-color: green;
+        width: 100%;
+        height: 50%;
+      }
+      .kanban {
+        width: 100px;
+        height: 400px;
+        background-color: aqua;
+        border: 1px solid black;
+      }
+      .kanban-content {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+
+  <body>
+    <section class="kanban-container">
+      <div class="kanban-todo-wrap">
+        <div class="kanban-title">to-do</div>
+        <div data-status="0" class="kanban kanban-todo kanban-drop"></div>
+      </div>
+      <div class="kanban-inprogress-wrap">
+        <div class="kanban-title">In progress</div>
+        <div data-status="1" class="kanban kanban-inprogress kanban-drop"></div>
+      </div>
+      <div class="kanban-done-wrap">
+        <div class="kanban-title">Done</div>
+        <div data-status="2" class="kanban kanban-done kanban-drop"></div>
+      </div>
+      <div class="kanban-uncompleted-wrap">
+        <div class="kanban-title">uncompleted</div>
+        <div data-status="3" class="kanban kanban-uncompleted"></div>
+      </div>
+    </section>
+  </body>
+</html>
