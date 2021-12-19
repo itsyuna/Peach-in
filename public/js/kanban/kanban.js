@@ -22,6 +22,7 @@ const insertSchedules = (parent, schedules, isDraggable) => {
         담당자: ${schedule.assignee}
       <div>
     `;
+
     parent.insertAdjacentHTML('beforeend', scheduleElem);
   });
 };
@@ -33,15 +34,11 @@ const updateUncompleted = async () => {
   const now = new Date();
 
   const overEndDaySchedules = data.store.schedules.filter(({ endDay }) => {
-    if (now.getFullYear() > new Date(endDay).getFullYear()) return false;
-    if (now.getMonth() > new Date(endDay).getMonth()) return false;
-    if (now.getDate() > new Date(endDay).getDate()) return false;
+    if (now.getTime() < new Date(endDay).getTime()) return false;
     return true;
   });
 
-  const uncompletedSchedules = overEndDaySchedules.filter(({ status }) => +status !== progress.DONE);
-
-  uncompletedSchedules.forEach(({ id }) => {
+  overEndDaySchedules.forEach(({ id }) => {
     data.updateSchedules(id, { completed: true });
   });
 };
@@ -50,9 +47,11 @@ const renderUncompleted = () => {
   const $kanbanUncompleted = document.querySelector('.kanban-uncompleted');
 
   removeChildElem($kanbanUncompleted);
+
   const remainSchedules = data.store.schedules.filter(
     ({ status, completed }) => completed && +status !== progress.DONE
   );
+
   insertSchedules($kanbanUncompleted, remainSchedules, false);
 };
 
@@ -60,7 +59,7 @@ const render = (() => {
   const $kanbanTodo = document.querySelector('.kanban-todo');
   const $kanbanInprogress = document.querySelector('.kanban-inprogress');
   const $kanbanDone = document.querySelector('.kanban-done');
-  const $kanbanUncompleted = document.querySelector('.kanban-uncompleted');
+  // const $kanbanUncompleted = document.querySelector('.kanban-uncompleted');
 
   return async () => {
     await data.fetchSchedules();
@@ -68,12 +67,12 @@ const render = (() => {
     const todoSchedules = filterByProgressStatus(progress.TODO);
     const inProgressSchedules = filterByProgressStatus(progress.IN_PROGRESS);
     const doneSchedules = filterByProgressStatus(progress.DONE);
-    const uncompletedSchedules = data.store.schedules.filter(({ completed }) => +completed);
 
     insertSchedules($kanbanTodo, todoSchedules, true);
     insertSchedules($kanbanInprogress, inProgressSchedules, true);
     insertSchedules($kanbanDone, doneSchedules, true);
-    insertSchedules($kanbanUncompleted, uncompletedSchedules, true);
+
+    await renderUncompleted();
   };
 })();
 
