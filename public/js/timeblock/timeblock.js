@@ -18,7 +18,7 @@ const COLORS = [
 ];
 
 const getCounting = element => {
-  const counting = [];
+  const limpidityElementCounting = [];
   element.forEach(childEl => {
     let flag = true;
     let count = 0;
@@ -28,9 +28,9 @@ const getCounting = element => {
       else flag = false;
     });
 
-    counting.push(count);
+    limpidityElementCounting.push(count);
   });
-  return counting;
+  return limpidityElementCounting;
 };
 
 const getMin = element => Math.min(...getCounting(element), Infinity);
@@ -47,33 +47,33 @@ const removeChildElement = element => {
 const createTimeBlock = (element, { startDay, endDay, id }) => {
   let flag = false;
   element.forEach(childEl => {
-    const div = document.createElement('div');
+    const timeBlock = document.createElement('div');
     if (startDay === childEl.dataset.date) flag = true;
 
     if (flag) {
-      div.style.opacity = 1;
-      div.style.height = '25px';
-      div.style.background = COLORS[id % COLORS.length];
+      timeBlock.style.opacity = 1;
+      timeBlock.style.height = '25px';
+      timeBlock.style.background = COLORS[id % COLORS.length];
     } else {
-      div.style.opacity = 0;
-      div.style.height = '25px';
+      timeBlock.style.opacity = 0;
+      timeBlock.style.height = '25px';
     }
     if (endDay === childEl.dataset.date) flag = false;
 
-    childEl.appendChild(div);
+    childEl.appendChild(timeBlock);
   });
 };
 
-const createOpacityBlock = element => {
+const createLimpidityBlock = element => {
   const min = getMin(element);
   element.forEach(childEl => {
     for (let i = 0; i < min; i++) {
-      const div = document.createElement('div');
+      const limpidityBlock = document.createElement('div');
 
-      div.style.opacity = 0;
-      div.style.height = '25px';
+      limpidityBlock.style.opacity = 0;
+      limpidityBlock.style.height = '25px';
 
-      childEl.appendChild(div);
+      childEl.appendChild(limpidityBlock);
     }
   });
 };
@@ -104,7 +104,7 @@ const paintTimeBlock = (element, schedules) => {
 
     removeChildElement(timeBlockRange);
     createTimeBlock(element, schedule);
-    createOpacityBlock(timeBlockRange);
+    createLimpidityBlock(timeBlockRange);
   });
 };
 
