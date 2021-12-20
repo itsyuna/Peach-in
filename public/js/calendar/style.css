@@ -1,0 +1,148 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+/***** calendar *****/
+.calendar {
+  width: 420px;
+  height: auto;
+  border: 1px solid #8c8a8a;
+  margin-top: 80px;
+  border-radius: 3px;
+}
+
+.calendar-nav {
+  width: 100%;
+  height: 80px;
+  background-color: #abeaf3;
+  display: flex;
+  justify-content: space-around;
+}
+
+.prev-btn,
+.next-btn {
+  color: white;
+  display: inline-block;
+  margin: 25px;
+  font-size: 18px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.month-year {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.this-year {
+  text-align: center;
+  color: white;
+  font-weight: 700;
+  font-size: 17px;
+}
+
+.this-month {
+  font-size: 25px;
+  margin: 0;
+  color: #5e6df3;
+  font-weight: 700;
+}
+
+.calendar-grid,
+.days-grid,
+.date-grid {
+  display: grid;
+}
+.days-grid,
+.date-grid {
+  grid-template-columns: repeat(7, 1fr);
+  justify-items: center;
+  align-items: center;
+  min-width: 0;
+  min-height: 0;
+}
+.days-grid > div {
+  color: #c7c3c3;
+  border: 1px solid gray;
+  width: 100%;
+  font-weight: 700;
+  padding: 5px 0;
+  display: inline-block;
+  font-size: 15px;
+  min-width: 0;
+  text-align: center;
+}
+.date-grid > div {
+  padding: 0 0 50px 0;
+  display: inline-block;
+  border-bottom: 1px solid gray;
+  border-right: 1px solid gray;
+  width: 100%;
+
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.date-grid > div:hover {
+  /* background-color: lightgoldenrodyellow; */
+  cursor: pointer;
+}
+
+.days-grid {
+  border-top: 1px solid #d2d1d1;
+}
+
+.days-grid > div:nth-of-type(1) {
+  color: #f34e4e;
+}
+
+.date-grid {
+  width: 100%;
+  height: 100%;
+  border-top: 1px solid #d2d1d1;
+  font-size: 14px;
+  color: #302f2f;
+}
+
+.prev-month,
+.next-month {
+  color: #d5d3d2;
+}
+
+.date-grid div[class='dates']:nth-child(7n + 1) {
+  color: #f7351e;
+}
+
+.date-grid div:nth-of-type(1) {
+  color: #d5d3d2;
+}
+
+.prev-month:nth-child(1) {
+  color: #d5d3d2;
+}
+.date-grid > .today {
+  /* background-color: #f7bda9; */
+  position: relative;
+  font-weight: 900;
+}
+
+.today::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-right: 3px solid rgb(248, 48, 108);
+  border-bottom: 3px solid rgb(248, 48, 108);
+  border-radius: 27%;
+  content: '';
+}
+
+.dates {
+  color: #3e3d3d;
+}
