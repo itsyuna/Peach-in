@@ -20,7 +20,7 @@ const insertSchedules = (parent, schedules, isDraggable) => {
       draggable=${isDraggable ? 'true' : 'false'}>
         할 일: ${schedule.content}
         담당자: ${schedule.assignee}
-      <div>
+      </div>
     `;
 
     parent.insertAdjacentHTML('beforeend', scheduleElem);
@@ -59,7 +59,6 @@ const render = (() => {
   const $kanbanTodo = document.querySelector('.kanban-todo');
   const $kanbanInprogress = document.querySelector('.kanban-inprogress');
   const $kanbanDone = document.querySelector('.kanban-done');
-  // const $kanbanUncompleted = document.querySelector('.kanban-uncompleted');
 
   return async () => {
     await data.fetchSchedules();
