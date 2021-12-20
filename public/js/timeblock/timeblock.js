@@ -58,7 +58,19 @@ const createTimeBlock = (element, { startDay, endDay, id }) => {
       timeBlock.style.opacity = 0;
       timeBlock.style.height = '25px';
     }
-    if (endDay === childEl.dataset.date) flag = false;
+
+    if (endDay === childEl.dataset.date) {
+      flag = false;
+      const closeIcon = document.createElement('i');
+      closeIcon.classList.add('bx');
+      closeIcon.classList.add('bx-trash');
+      closeIcon.style.color = 'grey';
+
+      timeBlock.appendChild(closeIcon);
+      timeBlock.style.display = 'flex';
+      timeBlock.style.alignItems = 'center';
+      timeBlock.style.justifyContent = 'right';
+    }
 
     childEl.appendChild(timeBlock);
   });
