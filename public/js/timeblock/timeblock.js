@@ -53,6 +53,7 @@ const createTimeBlock = (element, { startDay, endDay, id }) => {
     if (flag) {
       timeBlock.style.opacity = 1;
       timeBlock.style.height = '25px';
+      timeBlock.dataset.id = id;
       timeBlock.style.background = COLORS[id % COLORS.length];
     } else {
       timeBlock.style.opacity = 0;

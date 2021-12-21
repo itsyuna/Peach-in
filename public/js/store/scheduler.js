@@ -33,7 +33,8 @@ const addSchedules = async schedule => {
 
 const updateSchedules = async (id, schedule) => {
   try {
-    store.schedules = await fetches.patch(`/schedules/${id}`, schedule);
+    const newSchedule = await fetches.patch(`/schedules/${id}`, schedule);
+    store.schedules = newSchedule;
   } catch (e) {
     console.log(e);
   }
