@@ -64,15 +64,16 @@ app.post('/schedules', (req, res) => {
   const newSchedule = req.body; // {id, content, ~~}
   schedules = [...schedules, newSchedule];
 
-  res.send(schedules);
+  res.send(newSchedule);
 });
 
 // PATCH {status, completed} → 0, 1, 2 (true/false)
 app.patch('/schedules/:id', (req, res) => {
   const { id } = req.params;
-  const payload = req.body; // status, completed, content
+  const newSchedule = req.body; // status, completed, content: ;
 
-  schedules = schedules.map(schedule => (schedule.id === +id ? { ...schedule, ...payload } : schedule));
+  schedules = schedules.map(schedule => (schedule.id === +id ? { ...schedule, ...newSchedule } : schedule));
+
   res.send(schedules);
 });
 
