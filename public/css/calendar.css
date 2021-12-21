@@ -4,6 +4,16 @@
   box-sizing: border-box;
 }
 
+body {
+  background: radial-gradient(at 90% 70%, #ee9e93 10px, #f5ab80 30%, #ebc6bf 50%);
+}
+
+.scheduler-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
 /***** calendar *****/
 .calendar {
   width: 420px;

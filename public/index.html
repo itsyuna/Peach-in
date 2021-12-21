@@ -1,132 +1,196 @@
 <!DOCTYPE html>
 <html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+    <title>Scheduler</title>
+    <link rel="stylesheet" href="./css/calendar.css" />
+    <link rel="stylesheet" href="./css/modal.css" />
+    <link rel="stylesheet" href="./css/tooltip.css" />
+    <script type="module" defer src="./js/app.js"></script>
+    <style>
+      .kanban-container {
+        display: flex;
+        background-color: green;
+        border: 1px solid black;
+        border-radius: 5px;
+      }
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
-  <title>Scheduler</title>
-  <link rel="stylesheet" href="./css/tooltip/index.css">
-  <link rel="stylesheet" href="./js/calendar/style.css" />
-  <link rel="stylesheet" href="./js/modal/style.css" />
-  <script type="module" defer src="./js/calendar/calendar.js"></script>
-  <script type="module" defer src="./js/kanban/kanban.js"></script>
-  <style>
-    .kanban-container {
-      display: flex;
-      background-color: green;
-      width: 100%;
-      height: 50%;
-    }
+      .kanban {
+        min-width: 200px;
+        height: 400px;
+        background-color: aqua;
+        border: 1px solid black;
+        border-radius: 5px;
+      }
 
-    .kanban {
-      width: 100px;
-      height: 400px;
-      background-color: aqua;
-      border: 1px solid black;
-    }
+      .kanban-content {
+        padding: 8px;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid black;
+        border-radius: 5px;
+      }
 
-    .kanban-content {
-      border: 1px solid black;
-    }
-  </style>
-</head>
+      .kanban-content span {
+        margin: 5px;
+      }
+    </style>
+  </head>
 
-<body>
-  <section class="scheduler-container">
-    <article class="calendar">
-      <div class="calendar-nav">
-        <div class="prev-btn">
-          <i class="bx bxs-left-arrow"></i>
+  <body>
+    <!-- 추가 모달 -->
+    <section class="scheduler-container">
+      <article class="calendar">
+        <div class="calendar-nav">
+          <div class="prev-btn">
+            <i class="bx bxs-left-arrow"></i>
+          </div>
+          <div class="month-year">
+            <div class="this-month"></div>
+            <div class="this-year"></div>
+          </div>
+          <div class="next-btn">
+            <i class="bx bxs-right-arrow"></i>
+          </div>
         </div>
-        <div class="month-year">
-          <div class="this-month"></div>
-          <div class="this-year"></div>
+        <div class="calendar-grid"></div>
+      </article>
+      <article class="kanban-container">
+        <div class="kanban-todo-wrap">
+          <div class="kanban-title">to-do</div>
+          <div data-status="0" class="kanban kanban-todo kanban-drop"></div>
         </div>
-        <div class="next-btn">
-          <i class="bx bxs-right-arrow"></i>
+        <div class="kanban-inprogress-wrap">
+          <div class="kanban-title">In progress</div>
+          <div data-status="1" class="kanban kanban-inprogress kanban-drop"></div>
         </div>
-      </div>
-      <div class="calendar-grid"></div>
-    </article>
-    <article class="kanban-container">
-      <div class="kanban-todo-wrap">
-        <div class="kanban-title">to-do</div>
-        <div data-status="0" class="kanban kanban-todo kanban-drop"></div>
-      </div>
-      <div class="kanban-inprogress-wrap">
-        <div class="kanban-title">In progress</div>
-        <div data-status="1" class="kanban kanban-inprogress kanban-drop"></div>
-      </div>
-      <div class="kanban-done-wrap">
-        <div class="kanban-title">Done</div>
-        <div data-status="2" class="kanban kanban-done kanban-drop"></div>
-      </div>
-      <div class="kanban-uncompleted-wrap">
-        <div class="kanban-title">uncompleted</div>
-        <div data-status="3" class="kanban kanban-uncompleted"></div>
-      </div>
-    </article>
-  </section>
-  <section class="modal-wrap task-modal">
-    <div class="modal-overlay"></div>
-    <div class="container">
-      <div class="icon">
-        <i data-btn="모달닫기" class="bx bx-x"></i>
-      </div>
-      <form id="modal-form">
-        <div id="row-div">
-          <div class="ltcell-div">
-            <label for="task-input">Title</label>
-            <input type="text" name="content" id="task-input" class="task-input" placeholder="laundry" autofocus
+        <div class="kanban-done-wrap">
+          <div class="kanban-title">Done</div>
+          <div data-status="2" class="kanban kanban-done kanban-drop"></div>
+        </div>
+        <div class="kanban-uncompleted-wrap">
+          <div class="kanban-title">uncompleted</div>
+          <div data-status="3" class="kanban kanban-uncompleted"></div>
+        </div>
+      </article>
+    </section>
+
+    <!-- 등록 모달 -->
+    <section class="modal-wrap task-modal">
+      <div class="modal-overlay"></div>
+      <div class="container">
+        <div class="icon">
+          <i data-btn="모달닫기" class="bx bx-x cancel-btn"></i>
+        </div>
+        <form id="modal-form">
+          <div class="row">
+            <label for="add-task-input">Title</label>
+            <input
+              type="text"
+              name="content"
+              id="add-task-input"
+              class="task-input"
+              placeholder="laundry"
+              autofocus
+              required />
+            <label for="add-assignee-input">Assignee</label>
+            <input
+              type="text"
+              name="assignee"
+              id="add-assignee-input"
+              class="assignee-input"
+              placeholder="tarik"
               required />
           </div>
-          <div class="rtcell-div">
-            <label for="assignee-input">Assignee</label>
-            <input type="text" name="assignee" id="assignee-input" class="assignee-input" placeholder="tarik"
+          <div class="row">
+            <label for="add-start-day-input">Start</label>
+            <input
+              type="text"
+              name="start"
+              id="add-start-day-input"
+              class="start-day-input"
+              placeholder="2021-12-31"
+              required />
+            <label for="add-end-day-input-label">End</label>
+            <input
+              type="text"
+              name="end"
+              id="add-end-day-input"
+              class="end-day-input"
+              placeholder="2021-12-31"
               required />
           </div>
-        </div>
-        <div id="row-div">
-          <div class="ltcell-div">
-            <label for="start-day-input">Start</label>
-            <input type="text" name="start" id="start-day-input" class="start-day-input" placeholder="2021-12-31"
-              required />
-          </div>
-          <div class="rtcell-div">
-            <label for="end-day-input">End</label>
-            <input type="text" name="end" id="end-day-input" class="end-day-input" placeholder="2021-12-31" required />
-          </div>
-        </div>
-        <input type="submit" data-btn="모달등록" id="submit" class="submit-btn" value="Register">
-      </form>
-      <button data-btn="모달취소" class="cancel-btn">
-        Cancel
-      </button>
-    </div>
-  </section>
-
-  <!-- 삭제모달 -->
-  <section class="modal-wrap delete-modal">
-    <div class="modal-overlay"></div>
-    <div class="container">
-      <div class="icon">
-        <i data-btn="삭제모달닫기" class="bx bx-x"></i>
+          <input type="submit" data-btn="모달등록" id="submit" class="submit-btn" value="Register" />
+        </form>
+        <button data-btn="모달취소" class="cancel-btn">Cancel</button>
       </div>
-      <div>
+    </section>
+
+    <!-- 수정 모달 -->
+    <section class="modal-wrap update-modal">
+      <div class="modal-overlay"></div>
+      <div class="container">
+        <div class="icon">
+          <i data-btn="모달닫기" class="bx bx-x cancel-btn"></i>
+        </div>
+        <form id="modal-form">
+          <div class="row">
+            <label for="update-task-input">Title</label>
+            <input
+              type="text"
+              name="content"
+              id="update-task-input"
+              class="task-input"
+              placeholder="laundry"
+              autofocus
+              required />
+            <label for="update-assignee-input">Assignee</label>
+            <input
+              type="text"
+              name="assignee"
+              id="update-assignee-input"
+              class="assignee-input"
+              placeholder="tarik"
+              required />
+          </div>
+          <div class="row">
+            <label for="update-start-day-input">Start</label>
+            <input
+              type="text"
+              name="start"
+              id="update-start-day-input"
+              class="start-day-input"
+              placeholder="2021-12-31"
+              required />
+            <label for="update-end-day-input">End</label>
+            <input
+              type="text"
+              name="end"
+              id="update-end-day-input"
+              class="end-day-input"
+              placeholder="2021-12-31"
+              required />
+          </div>
+          <input type="submit" data-btn="모달등록" id="submit" class="submit-btn" value="Register" />
+        </form>
+        <button data-btn="모달취소" class="cancel-btn">Cancel</button>
+      </div>
+    </section>
+
+    <!-- 삭제모달 -->
+    <section class="modal-wrap delete-modal">
+      <div class="modal-overlay"></div>
+      <div class="container">
+        <i data-btn="삭제모달닫기" class="bx bx-x cancel-btn"></i>
         <p>Are you sure you want to delete this task?</p>
+        <div class="button-container">
+          <button data-btn="삭제">Delete</button>
+          <button data-btn="삭제모달취소" class="cancel-btn">Cancel</button>
+        </div>
       </div>
-      <div class="button-container">
-        <button data-btn="삭제" class="delete-btn">
-          Delete
-        </button>
-        <button data-btn="삭제모달취소" class="cancel-btn">
-          Cancel
-        </button>
-      </div>
-    </div>
-  </section>
-</body>
-
+    </section>
+  </body>
 </html>

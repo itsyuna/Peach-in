@@ -1,3 +1,4 @@
+import currentDate from '../calendar/state.js';
 import data from '../store/scheduler.js';
 
 const progress = {
@@ -14,6 +15,7 @@ const removeChildElem = parentElem => {
 };
 
 const insertSchedules = (parent, schedules, isDraggable) => {
+  removeChildElem(parent);
   schedules.forEach(schedule => {
     const scheduleElem = `
       <div data-id=${schedule.id} class='kanban-content kanban-draggable' 
@@ -75,56 +77,58 @@ const render = (() => {
   };
 })();
 
+let currentDrag = null;
+let currentStatus = null;
 const dragEvents = () => {
-  let currentDrag;
-  let currentStatus;
-
-  return (() => {
-    document.querySelectorAll('.kanban-draggable').forEach($draggable => {
-      $draggable.addEventListener('dragstart', e => {
-        currentDrag = e.target;
-        currentStatus = e.target.parentNode.dataset.status;
-        currentDrag.style.opacity = 0.5;
-      });
-      $draggable.addEventListener('dragend', e => {
-        e.preventDefault();
-        e.target.style.opacity = '';
-      });
+  document.querySelectorAll('.kanban-draggable').forEach($draggable => {
+    $draggable.addEventListener('dragstart', e => {
+      currentDrag = e.target;
+      currentStatus = e.target.parentNode.dataset.status;
+      currentDrag.style.opacity = 0.5;
     });
-
-    document.addEventListener('dragenter', e => {
+    $draggable.addEventListener('dragend', e => {
       e.preventDefault();
-      if (!e.target.className.includes('kanban-drop')) return;
-      e.target.appendChild(currentDrag);
+      e.target.style.opacity = '';
     });
+  });
 
-    document.addEventListener('dragover', e => {
+  document.addEventListener('dragenter', e => {
+    e.preventDefault();
+    if (!e.target.className.includes('kanban-drop')) return;
+    e.target.appendChild(currentDrag);
+  });
+
+  document.addEventListener('dragover', e => {
+    e.preventDefault();
+  });
+
+  document.addEventListener('dragleave', e => {
+    e.preventDefault();
+  });
+
+  document.querySelectorAll('.kanban-drop').forEach($progressContainer => {
+    $progressContainer.addEventListener('drop', async e => {
       e.preventDefault();
+      if (!e.target.classList.contains('kanban') && !e.target.classList.contains('kanban-content')) return;
+
+      const id = e.target.dataset.id || e.target.lastChild.dataset.id;
+      const status = e.target.dataset.status || e.target.parentNode.dataset.status;
+
+      if (currentStatus === status) return;
+
+      currentDrag = null;
+      currentStatus = null;
+
+      await data.updateSchedules(id, { status });
+      await renderUncompleted();
     });
-
-    document.addEventListener('dragleave', e => {
-      e.preventDefault();
-    });
-
-    document.querySelectorAll('.kanban-drop').forEach($progressContainer => {
-      $progressContainer.addEventListener('drop', async e => {
-        e.preventDefault();
-        if (!e.target.classList.contains('kanban') && !e.target.classList.contains('kanban-content')) return;
-
-        const id = e.target.dataset.id || e.target.lastChild.dataset.id;
-        const status = e.target.dataset.status || e.target.parentNode.dataset.status;
-
-        if (currentStatus === status) return;
-
-        await data.updateSchedules(id, { status });
-        await renderUncompleted();
-      });
-    });
-  })();
+  });
 };
 
-(async () => {
+const renderKan = async () => {
   await updateUncompleted();
   await render();
   await dragEvents();
-})();
+};
+
+export default { renderKan };

@@ -44,15 +44,6 @@ let schedules = [
     status: 1,
     completed: false,
   },
-  {
-    id: 5,
-    content: 'Vue',
-    assignee: '유지현',
-    startDay: '2021-12-14',
-    endDay: '2021-12-15',
-    status: 2,
-    completed: false,
-  },
 ];
 
 // GET
