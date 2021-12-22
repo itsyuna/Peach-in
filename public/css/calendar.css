@@ -4,36 +4,28 @@
   box-sizing: border-box;
 }
 
-body {
-  background: radial-gradient(at 90% 70%, #ee9e93 10px, #f5ab80 30%, #ebc6bf 40%);
-}
-
-.scheduler-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-
-/***** calendar *****/
 .calendar {
-  width: 420px;
-  height: auto;
-  border: 1px solid #8c8a8a;
-  margin-top: 80px;
+  width: 600px;
+  height: 700px;
   border-radius: 3px;
+  margin-right: 50px;
 }
 
 .calendar-nav {
   width: 100%;
   height: 80px;
-  background-color: #abeaf3;
+  background-color: #faef9f;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+}
+
+.calendar-grid {
+  background-color: white;
 }
 
 .prev-btn,
 .next-btn {
-  color: white;
+  color: #582165;
   display: inline-block;
   margin: 25px;
   font-size: 18px;
@@ -48,7 +40,7 @@ body {
 
 .this-year {
   text-align: center;
-  color: white;
+  color: #1a517c;
   font-weight: 700;
   font-size: 17px;
 }
@@ -56,7 +48,7 @@ body {
 .this-month {
   font-size: 25px;
   margin: 0;
-  color: #5e6df3;
+  color: #2e2fc5;
   font-weight: 700;
 }
 
@@ -74,7 +66,7 @@ body {
   min-height: 0;
 }
 .days-grid > div {
-  color: #c7c3c3;
+  color: #515a62;
   border: 1px solid gray;
   width: 100%;
   font-weight: 700;
@@ -99,7 +91,6 @@ body {
 }
 
 .date-grid > div:hover {
-  /* background-color: lightgoldenrodyellow; */
   cursor: pointer;
 }
 
@@ -136,7 +127,6 @@ body {
   color: #d5d3d2;
 }
 .date-grid > .today {
-  /* background-color: #f7bda9; */
   position: relative;
   font-weight: 900;
 }
