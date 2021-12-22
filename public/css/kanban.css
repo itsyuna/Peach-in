@@ -26,6 +26,7 @@ body {
 }
 
 .kanban-content {
+  cursor: pointer;
   border: 1px solid black;
 }
 
@@ -40,6 +41,7 @@ body {
 
 .kanban-drop {
   padding: 5px;
+  height: 100%;
 }
 
 .kanban-todo-wrap,

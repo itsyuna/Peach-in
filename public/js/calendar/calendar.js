@@ -3,10 +3,6 @@ import timeblock from './timeblock.js';
 import dragevent from './dragevent.js';
 
 const $calendarGrid = document.querySelector('.calendar-grid');
-const $prevBtn = document.querySelector('.prev-btn');
-const $nextBtn = document.querySelector('.next-btn');
-const $month = document.querySelector('.this-month');
-const $year = document.querySelector('.this-year');
 
 const MONTH_NAMES = [
   'January',
@@ -24,16 +20,21 @@ const MONTH_NAMES = [
 ];
 
 const DAY_NAMES = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+
 const today = new Date();
 
 state.currentDate.month = today.getMonth();
 state.currentDate.year = today.getFullYear();
 
-$month.innerText = MONTH_NAMES[state.currentDate.month];
-$year.innerText = state.currentDate.year;
+const renderDates = () => {
+  const { year } = state.currentDate;
+  const { month } = state.currentDate;
 
-const renderDates = (year = state.currentDate.year, month = state.currentDate.month) => {
-  $calendarGrid.innerHTML = `<div class="days-grid">${DAY_NAMES.map(v => `<div>${v}</div>`).join('')}</div>`;
+  document.querySelector('.this-month').innerText = MONTH_NAMES[state.currentDate.month];
+  document.querySelector('.this-year').innerText = state.currentDate.year;
+  $calendarGrid.innerHTML = `
+  <div class="days-grid">
+    ${DAY_NAMES.map(dayName => `<div>${dayName}</div>`).join('')}</div>`;
 
   const $dateGrid = document.createElement('div');
   $dateGrid.classList.add('date-grid');
@@ -82,34 +83,28 @@ const prevNextArrows = () => {
   const JANUARY_NUM = 0;
   const DECEMBER_NUM = 11;
 
-  $prevBtn.addEventListener('click', () => {
+  document.querySelector('.prev-btn').addEventListener('click', () => {
     if (state.currentDate.month === JANUARY_NUM) {
       state.currentDate.month = DECEMBER_NUM;
       state.currentDate.year -= 1;
     } else {
       state.currentDate.month -= 1;
     }
-    renderDates(state.currentDate.year, state.currentDate.month);
+    renderDates();
     timeblock.render();
     dragevent.dragEvents();
-
-    $month.innerText = MONTH_NAMES[state.currentDate.month];
-    $year.innerText = state.currentDate.year;
   });
 
-  $nextBtn.addEventListener('click', () => {
+  document.querySelector('.next-btn').addEventListener('click', () => {
     if (state.currentDate.month === DECEMBER_NUM) {
       state.currentDate.month = JANUARY_NUM;
       state.currentDate.year += 1;
     } else {
       state.currentDate.month += 1;
     }
-    renderDates(state.currentDate.year, state.currentDate.month);
+    renderDates();
     timeblock.render();
     dragevent.dragEvents();
-
-    $month.innerText = MONTH_NAMES[state.currentDate.month];
-    $year.innerText = state.currentDate.year;
   });
 };
 

@@ -5,15 +5,12 @@ import state from './state.js';
 
 let curId;
 
+const $modalContainers = document.querySelectorAll('.container');
 const $taskModal = document.querySelector('.task-modal');
 const $updateModal = document.querySelector('.update-modal');
 const $deleteModal = document.querySelector('.delete-modal');
-const $textInput = document.querySelector('.task-input');
-const $startDayInput = document.querySelector('.start-day-input');
-const $endDayInput = document.querySelector('.end-day-input');
-const $assignee = document.querySelector('.assignee-input');
 
-const modalClose = async e => {
+const modalClose = () => {
   $taskModal.style.display = 'none';
   $deleteModal.style.display = 'none';
   $updateModal.style.display = 'none';
@@ -26,10 +23,10 @@ function updateModalOpen(e) {
   const currentId = e.target.parentNode.dataset.id;
   const schedule = data.store.schedules.filter(({ id }) => id === +currentId);
 
-  $textInput.value = schedule[0].content;
-  $assignee.value = schedule[0].assignee;
-  $startDayInput.value = schedule[0].startDay;
-  $endDayInput.value = schedule[0].endDay;
+  document.querySelector('#update-task-input').value = schedule[0].content;
+  document.querySelector('#update-assignee-input').value = schedule[0].assignee;
+  document.querySelector('#update-start-day-input').value = schedule[0].startDay;
+  document.querySelector('#update-end-day-input').value = schedule[0].endDay;
 
   $updateModal.style.display = 'block';
 
@@ -41,13 +38,43 @@ function deleteModalOpen(e) {
   curId = e.target.parentNode.dataset.id;
 }
 
-$taskModal.addEventListener('submit', async e => {
+$taskModal.addEventListener('submit', e => {
   e.preventDefault();
   const newSchedule = { ...helper.getSchedule(e) };
   data.addSchedules(newSchedule);
 
   modalClose(e);
 });
+
+function trapFocus(element) {
+  const focusableEls = element.querySelectorAll(
+    'a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled])'
+  );
+  const firstFocusableEl = focusableEls[0];
+  const lastFocusableEl = focusableEls[focusableEls.length - 1];
+  const KEYCODE_TAB = 9;
+
+  element.addEventListener('keydown', e => {
+    const isTabPressed = e.key === 'Tab' || e.keyCode === KEYCODE_TAB;
+
+    if (!isTabPressed) {
+      return;
+    }
+
+    if (e.shiftKey) {
+      /* shift + tab */ if (document.activeElement === firstFocusableEl) {
+        lastFocusableEl.focus();
+        e.preventDefault();
+      }
+    } else {
+      /* tab */
+      if (document.activeElement === lastFocusableEl) {
+        firstFocusableEl.focus();
+        e.preventDefault();
+      }
+    }
+  });
+}
 
 [...document.querySelectorAll('.cancel-btn')].forEach(deleteBtn => {
   deleteBtn.addEventListener('click', e => {
@@ -76,6 +103,13 @@ $deleteModal.addEventListener('click', async e => {
   modalClose(e);
 });
 
+$modalContainers.forEach($modalContainer => {
+  trapFocus($modalContainer);
+});
+
+window.addEventListener('keyup', e => {
+  if (e.keyCode === 27) modalClose();
+});
 // --------------------------------------------------> 타임블록
 
 const COLORS = [
@@ -249,21 +283,21 @@ const renderTimeBlock = async () => {
 };
 
 function editTimeBlock() {
-  document.querySelectorAll('.bx-edit-alt').forEach(editIcon =>
+  document.querySelectorAll('.bx-edit-alt').forEach(editIcon => {
     editIcon.addEventListener('click', e => {
       if (!e.target.classList.contains('bx-edit-alt')) return;
       updateModalOpen(e);
-    })
-  );
+    });
+  });
 }
 
 function deleteTimeBlock() {
-  document.querySelectorAll('.bx-trash').forEach(icon =>
-    icon.addEventListener('click', e => {
+  document.querySelectorAll('.bx-trash').forEach(deleteIcon => {
+    deleteIcon.addEventListener('click', e => {
       if (!e.target.classList.contains('bx-trash')) return;
       deleteModalOpen(e);
-    })
-  );
+    });
+  });
 }
 
 async function render() {

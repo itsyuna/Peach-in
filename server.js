@@ -11,7 +11,7 @@ let schedules = [
   {
     id: 1,
     content: 'HTML',
-    assignee: '홍정민',
+    assignee: '유지현',
     startDay: '2021-12-12',
     endDay: '2021-12-15',
     status: 0, // 2

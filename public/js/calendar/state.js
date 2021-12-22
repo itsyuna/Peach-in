@@ -22,12 +22,26 @@ const currentDate = {
 const drag = {
   _state: {
     isDragging: false,
+    $dragStartPoint: null,
+    $dragEndPoint: null,
   },
   get isDragging() {
     return this._state.isDragging;
   },
   set isDragging(newIsDragging) {
     this._state.isDragging = newIsDragging;
+  },
+  get $dragStartPoint() {
+    return this._state.$dragStartPoint;
+  },
+  set $dragStartPoint($newDragStartPoint) {
+    this._state.$dragStartPoint = $newDragStartPoint;
+  },
+  get $dragEndPoint() {
+    return this._state.$dragEndPoint;
+  },
+  set $dragEndPoint($newDragEndPoint) {
+    this._state.$dragEndPoint = $newDragEndPoint;
   },
 };
 
