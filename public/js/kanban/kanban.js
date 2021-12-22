@@ -20,8 +20,8 @@ const insertSchedules = (parent, schedules, isDraggable) => {
     const scheduleElem = `
       <div data-id=${schedule.id} class='kanban-content kanban-draggable' 
       draggable=${isDraggable ? 'true' : 'false'}>
-        할 일: ${schedule.content}
-        담당자: ${schedule.assignee}
+        <span>할 일: ${schedule.content}</span>
+        <span>담당자: ${schedule.assignee}</span>
       </div>
     `;
 
