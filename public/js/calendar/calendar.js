@@ -1,5 +1,6 @@
 import state from './state.js';
 import timeblock from './timeblock.js';
+import dragevent from './dragevent.js';
 
 const $calendarGrid = document.querySelector('.calendar-grid');
 const $prevBtn = document.querySelector('.prev-btn');
@@ -90,6 +91,8 @@ const prevNextArrows = () => {
     }
     renderDates(state.currentDate.year, state.currentDate.month);
     timeblock.render();
+    dragevent.dragEvents();
+
     $month.innerText = MONTH_NAMES[state.currentDate.month];
     $year.innerText = state.currentDate.year;
   });
@@ -103,6 +106,7 @@ const prevNextArrows = () => {
     }
     renderDates(state.currentDate.year, state.currentDate.month);
     timeblock.render();
+    dragevent.dragEvents();
 
     $month.innerText = MONTH_NAMES[state.currentDate.month];
     $year.innerText = state.currentDate.year;
