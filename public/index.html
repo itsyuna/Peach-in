@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
+  <meta name="description" content="협업 관리를 위한 툴, 피치인입니다." />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
@@ -32,6 +33,7 @@
       </div>
     </header>
     <section class="scheduler-container">
+      <h2>달력</h2>
       <article class="calendar">
         <div class="calendar-nav">
           <div class="prev-btn">
@@ -47,6 +49,7 @@
         </div>
         <div class="calendar-grid"></div>
       </article>
+      <h2>칸반보드</h2>
       <article class="kanban-container">
         <div class="kanban-todo-wrap">
           <div class="kanban-title">To-do</div>
@@ -75,7 +78,7 @@
       <div class="icon">
         <i data-btn="모달닫기" class="bx bx-x cancel-btn"></i>
       </div>
-      <form id="modal-form">
+      <form>
         <div class="input-container">
           <input type="text" name="content" id="add-task-input" class="task-input" autofocus />
           <label for="add-task-input">할 일을 입력하세요.</label>
@@ -87,12 +90,12 @@
         <div class="input-container">
           <input type="text" name="start" id="add-start-day-input" class="start-day-input" required />
           <label for="add-start-day-input">시작일</label>
-        </div class="input-container">
+        </div>
         <div class="input-container">
           <input type="text" name="end" id="add-end-day-input" class="end-day-input" required />
-          <label for="add-end-day-input-label">마감일</label>
+          <label for="add-end-day-input">마감일</label>
         </div>
-        <input type="submit" data-btn="모달등록" id="submit" class="submit-btn" value="Register" />
+        <input type="submit" data-btn="모달등록" class="submit-btn" value="Register" />
       </form>
       <button data-btn="모달취소" class="cancel-btn cancel-btn-color">Cancel</button>
     </div>
@@ -103,7 +106,7 @@
     <div class="modal-overlay"></div>
     <div class="container">
       <i data-btn="모달닫기" class="bx bx-x cancel-btn"></i>
-      <form id="modal-form">
+      <form>
         <div class="input-container">
           <label for="update-task-input">Title</label>
           <input type="text" name="content" id="update-task-input" class="task-input" required />
@@ -120,7 +123,7 @@
           <label for="update-end-day-input">End</label>
           <input type="text" name="end" id="update-end-day-input" class="end-day-input" required />
         </div>
-        <input type="submit" data-btn="모달등록" id="submit" class="submit-btn" value="Register" />
+        <input type="submit" data-btn="모달등록" class="submit-btn" value="Register" />
       </form>
       <button data-btn="모달취소" class="cancel-btn cancel-btn-color">Cancel</button>
     </div>

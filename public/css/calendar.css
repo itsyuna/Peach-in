@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+.scheduler-container h2 {
+  opacity: 0;
+}
+
 .calendar {
   width: 600px;
   height: 700px;

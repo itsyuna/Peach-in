@@ -38,14 +38,6 @@ function deleteModalOpen(e) {
   curId = e.target.parentNode.dataset.id;
 }
 
-$taskModal.addEventListener('submit', e => {
-  e.preventDefault();
-  const newSchedule = { ...helper.getSchedule(e) };
-  data.addSchedules(newSchedule);
-
-  modalClose(e);
-});
-
 function trapFocus(element) {
   const focusableEls = element.querySelectorAll(
     'a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled])'
@@ -81,6 +73,14 @@ function trapFocus(element) {
     modalClose(e);
     state.drag.isDragging = false;
   });
+});
+
+$taskModal.addEventListener('submit', e => {
+  e.preventDefault();
+  const newSchedule = { ...helper.getSchedule(e) };
+  data.addSchedules(newSchedule);
+
+  modalClose(e);
 });
 
 $updateModal.addEventListener('submit', async e => {
