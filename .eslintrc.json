@@ -11,6 +11,9 @@
   },
   "globals": { "_": true },
   "plugins": ["import", "html"],
+  "settings": {
+    "html/html-extensions": [".html", ".we"] // consider .html and .we files as HTML
+  },
   "extends": "airbnb-base",
   "rules": {
     // "off" or 0 - turn the rule off
@@ -42,6 +45,9 @@
       }
     ],
     "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "import/prefer-default-export": "off",
+    "import/extensions": ["off"],
+    "import/no-unresolved": "off",
     "max-len": [
       "error",
       {

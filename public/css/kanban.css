@@ -1,0 +1,145 @@
+body {
+  background: linear-gradient(to right, #ee9e93 20%, #f5ab80 30%, #ebc6bf 50%);
+}
+
+.outer {
+  width: 1800px;
+  height: 1000px;
+  margin: 0 auto;
+}
+
+.scheduler-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 200px;
+  width: 100%;
+  height: 700px;
+}
+
+.kanban-container {
+  font-family: 'Cute Font', cursive;
+  font-family: 'Hahmlet', serif;
+  display: flex;
+  width: 1100px;
+  height: 100%;
+}
+
+.kanban-content {
+  cursor: pointer;
+  border: 1px solid black;
+}
+
+.kanban-title {
+  text-align: center;
+  height: 50px;
+  line-height: 50px;
+  font-family: 'Stylish', sans-serif;
+  font-size: 27px;
+  color: #182a43;
+}
+
+.kanban-drop {
+  padding: 5px;
+  height: 100%;
+}
+
+.kanban-todo-wrap,
+.kanban-inprogress-wrap,
+.kanban-done-wrap,
+.kanban-uncompleted-wrap {
+  width: 300px;
+  margin: 10px;
+  margin-top: 0;
+}
+
+.kanban-todo-wrap {
+  background-color: #fdc77a;
+}
+.kanban-inprogress-wrap {
+  background-color: #f0f778;
+}
+
+.kanban-done-wrap {
+  background-color: #8fb7f2;
+}
+
+.kanban-uncompleted-wrap {
+  background-color: #f89ca2;
+}
+
+.kanban-todo {
+  background-color: #fdc77a;
+}
+
+.kanban-inprogress {
+  background-color: #f0f778;
+}
+
+.kanban-done {
+  background-color: #8fb7f2;
+}
+
+.kanban-uncompleted {
+  background-color: #f89ca2;
+}
+
+h1 {
+  color: #fff;
+  padding: 0.7rem 0.7rem 0.7rem 2rem;
+  border-radius: 10px;
+  background: linear-gradient(45deg, rgb(254, 107, 139) 30%, rgb(255, 142, 83) 90%);
+  box-shadow: rgba(255, 105, 135, 0.3) 0px 3px 5px 2px;
+  font-family: 'Lobster', cursive;
+}
+
+.header-box {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+img {
+  width: 45px;
+  height: 50px;
+}
+
+.title-box {
+  position: absolute;
+  top: 20px;
+  width: 100%;
+}
+
+.icon-box {
+  position: absolute;
+  top: 53px;
+  right: 5px;
+  z-index: 2;
+}
+
+.kanban-draggable {
+  margin-top: 12px;
+  background-color: white;
+  border-radius: 7px;
+  height: 65px;
+  text-align: center;
+  padding: 3px;
+}
+
+.kanban-draggable > span {
+  display: block;
+}
+
+.kanban-draggable > span:nth-child(1) {
+  color: #ae003b;
+}
+
+.kanban-draggable > span:nth-child(1)::before {
+  content: '✔';
+  color: #b40002;
+  margin-right: 3px;
+}
+
+.kanban-draggable > span:nth-child(2) {
+  color: #020598;
+}
