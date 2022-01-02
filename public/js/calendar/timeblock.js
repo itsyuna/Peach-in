@@ -3,8 +3,6 @@ import helper from '../utils/helper.js';
 import kanban from '../kanban/kanban.js';
 import state from './state.js';
 
-let curId;
-
 const $modalContainers = document.querySelectorAll('.container');
 const $taskModal = document.querySelector('.task-modal');
 const $updateModal = document.querySelector('.update-modal');
@@ -30,12 +28,12 @@ function updateModalOpen(e) {
 
   $updateModal.style.display = 'block';
 
-  curId = currentId;
+  state.timeblock.currentId = currentId;
 }
 
 function deleteModalOpen(e) {
   $deleteModal.style.display = 'block';
-  curId = e.target.parentNode.dataset.id;
+  state.timeblock.currentId = e.target.parentNode.dataset.id;
 }
 
 function trapFocus(element) {
@@ -86,7 +84,7 @@ $taskModal.addEventListener('submit', e => {
 $updateModal.addEventListener('submit', async e => {
   e.preventDefault();
   const { content, assignee, startDay, endDay } = { ...helper.getSchedule(e) };
-  const id = +curId;
+  const id = +state.timeblock.currentId;
   await data.updateSchedules(id, {
     content,
     assignee,
@@ -98,7 +96,7 @@ $updateModal.addEventListener('submit', async e => {
 
 $deleteModal.addEventListener('click', async e => {
   if (e.target.dataset.btn === '삭제') {
-    await data.removeSchedules(curId);
+    await data.removeSchedules(state.timeblock.currentId);
   }
   modalClose(e);
 });
