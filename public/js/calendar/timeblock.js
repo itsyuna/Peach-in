@@ -33,7 +33,7 @@ function updateModalOpen(e) {
 
 function deleteModalOpen(e) {
   $deleteModal.style.display = 'block';
-  state.timeblock.currentId = e.target.parentNode.dataset.id;
+  state.timeblock.currentId = +e.target.parentNode.dataset.id;
 }
 
 function trapFocus(element) {
@@ -84,7 +84,7 @@ $taskModal.addEventListener('submit', e => {
 $updateModal.addEventListener('submit', async e => {
   e.preventDefault();
   const { content, assignee, startDay, endDay } = { ...helper.getSchedule(e) };
-  const id = +state.timeblock.currentId;
+  const id = state.timeblock.currentId;
   await data.updateSchedules(id, {
     content,
     assignee,
