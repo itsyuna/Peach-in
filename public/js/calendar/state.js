@@ -45,4 +45,16 @@ const drag = {
   },
 };
 
-export default { currentDate, drag };
+const timeblock = {
+  _state: {
+    currentId: 0,
+  },
+  get isDragging() {
+    return this._state.currentId;
+  },
+  set isDragging(newId) {
+    this._state.currentId = newId;
+  },
+};
+
+export default { currentDate, drag, timeblock };
