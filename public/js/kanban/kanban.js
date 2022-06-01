@@ -80,7 +80,9 @@ const render = (() => {
 let currentDrag = null;
 let currentStatus = null;
 const dragEvents = () => {
-  document.querySelectorAll('.kanban-draggable').forEach($draggable => {
+  document.querySelectorAll('.kanban').forEach($draggable => {
+    if ($draggable.classList.contains('kanban-uncompleted')) return;
+
     $draggable.addEventListener('dragstart', e => {
       currentDrag = e.target;
       currentStatus = e.target.parentNode.dataset.status;
