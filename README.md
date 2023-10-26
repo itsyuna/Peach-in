@@ -8,6 +8,8 @@
 <pre> 개발 일정 관리를 위한 캘린더와 칸반보드를 제공하는 서비스 입니다.
 </pre>
 
+<br>
+
 ## 기술 스택
 
 <div align="center">
@@ -15,6 +17,8 @@
   <img  src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=CSS3&logoColor=white"/>
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=white"/>
 </div>
+
+<br>
 
 ## 데모
 
@@ -40,7 +44,7 @@
   
 </details>
 
-
+<br>
 
 ## 실행방법
 
